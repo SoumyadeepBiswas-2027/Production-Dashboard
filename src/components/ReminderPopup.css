@@ -1,0 +1,29 @@
+.reminder-popup {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 280px;
+  background: #111;
+  color: white;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
+  animation: shake 0.4s infinite alternate;
+  z-index: 9999;
+}
+
+@keyframes shake {
+  from { transform: translateX(-2px); }
+  to { transform: translateX(2px); }
+}
+
+.popup-actions {
+  margin-top: 12px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.popup-actions button {
+  padding: 6px 10px;
+  cursor: pointer;
+}

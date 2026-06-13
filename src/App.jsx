@@ -75,7 +75,8 @@ function App() {
         <ReminderPopup
           text={activeTodoText}
           // CHANGED:
-          onSnooze={() => handleSnooze(activeTodoId)}
+          // onSnooze={() => handleSnooze(activeTodoId)}
+          onSnooze={() => handleSnooze(activeTodoId, todos.find(t => t.id === activeTodoId)?.snoozeCount)}
           // CHANGED:
           onDone={handleDone}
         />

@@ -31,6 +31,8 @@ export const addTodo = async ({ text, datetime }) => {
     dismissed: false,
     missed: false,
     archived: false,
+    overdue: false,      
+    overdueAt: null,     
     
     snoozeCount: 0, // <-- Start counting snoozes at zero
 

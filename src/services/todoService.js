@@ -1,4 +1,11 @@
-import { collection, addDoc, deleteDoc, doc, updateDoc, onSnapshot } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  deleteDoc,
+  doc,
+  updateDoc,
+  onSnapshot,
+} from "firebase/firestore";
 import { db } from "../firebase";
 
 const todoCollection = collection(db, "todos");
@@ -14,7 +21,7 @@ export const subscribeToTodos = (callback) => {
         (todo) =>
           !todo.dismissed &&
           // We removed the !todo.missed check here so they stay visible
-          !todo.archived 
+          !todo.archived,
       );
 
     callback(todosFromFirebase);
@@ -31,9 +38,9 @@ export const addTodo = async ({ text, datetime }) => {
     dismissed: false,
     missed: false,
     archived: false,
-    overdue: false,      
-    overdueAt: null,     
-    
+    overdue: false,
+    overdueAt: null,
+
     snoozeCount: 0, // <-- Start counting snoozes at zero
 
     completedAt: null,
@@ -42,6 +49,8 @@ export const addTodo = async ({ text, datetime }) => {
     archivedAt: null,
     snoozedUntil: null,
     reminderStartedAt: null,
+    rescheduled: false, 
+    notificationDismissed: false,
   };
 
   await addDoc(todoCollection, newTodo);

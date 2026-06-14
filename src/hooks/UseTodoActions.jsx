@@ -2,8 +2,8 @@ import { addTodo, deleteTodo, toggleTodo } from "../services/todoService";
 import { updateDoc, doc } from "firebase/firestore";
 import { db } from "../firebase";
 
- const SNOOZE_DURATION = 30 * 1000; // 30 seconds
-//const SNOOZE_DURATION = 5 * 60 * 1000; // 5 mins
+const SNOOZE_DURATION = 5 * 60 * 1000; // 5 mins     <=====revert back=======>
+// const SNOOZE_DURATION = 5 * 1000; // 5 mins
 
 export function UseTodoActions({
   activeTodoId,

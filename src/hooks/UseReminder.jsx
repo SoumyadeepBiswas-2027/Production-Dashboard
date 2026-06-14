@@ -131,16 +131,15 @@
 //   };
 // }
 
-
 import { useState, useEffect, useRef, useCallback } from "react";
 import { updateDoc, doc } from "firebase/firestore";
 import { db } from "../firebase";
 
 const POLL_INTERVAL = 1000;
-const AUTO_SNOOZE_AFTER = 60 * 1000;  // 1 min of ignoring popup → auto snooze
-const SNOOZE_DURATION = 5 * 60 * 1000; // 5 min snooze lap (matches UseTodoActions)
-//const SNOOZE_DURATION = 30 * 1000; // 30 seconds
-
+const AUTO_SNOOZE_AFTER = 60 * 1000;  // 1 min of ignoring popup → auto snooze   <===revert back====>
+// const AUTO_SNOOZE_AFTER = 10 * 1000; // 10 seconds
+const SNOOZE_DURATION = 5 * 60 * 1000; // 5 min snooze lap (matches UseTodoActions)   <===revert back====>
+// const SNOOZE_DURATION = 5 * 1000; // 5 seconds
 
 export function useReminder(todos, { playAlarm, stopAlarm }) {
   const [showReminder, setShowReminder] = useState(false);

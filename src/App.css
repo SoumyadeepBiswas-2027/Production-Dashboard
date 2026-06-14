@@ -170,3 +170,147 @@ html, body {
   background: #4338ca;
 }
 
+/* //notification styling */
+
+/* Notification Bell Button */
+.notification-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background-color: rgba(17, 17, 17, 0.6);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* Red badge on bell */
+.notification-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 18px;
+  height: 18px;
+  background-color: #ff4444;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: white;
+  font-weight: bold;
+}
+
+/* Dropdown panel */
+.notification-panel {
+  position: absolute;
+  right: 0;
+  margin-top: 8px;
+  width: 320px;
+  background-color: rgba(17, 17, 17, 0.95);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Dropdown header */
+.notification-header {
+  padding: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.notification-header h3 {
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Dropdown body */
+.notification-body {
+  padding: 20px 16px;
+}
+
+.notification-message {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0 0 20px 0;
+}
+
+.notification-message span {
+  color: #ff4444;
+  font-weight: bold;
+}
+
+/* Yes / No buttons row */
+.notification-actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* YES button */
+.notification-yes-btn {
+  flex: 1;
+  padding: 10px;
+  background-color: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.notification-yes-btn:hover {
+  background-color: #4338ca;
+}
+
+/* NO button */
+.notification-no-btn {
+  flex: 1;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.notification-no-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Empty state panel */
+.notification-empty {
+  position: absolute;
+  right: 0;
+  margin-top: 8px;
+  width: 280px;
+  background-color: rgba(17, 17, 17, 0.95);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+
+.notification-empty p {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 14px;
+  margin: 0;
+}
+
+/* Fixed position wrapper */
+.notification-wrapper {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 9999;
+}

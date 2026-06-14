@@ -7,15 +7,18 @@ import TodoItems from "./components/TodoItems";
 import AddTodo from "./components/AddTodo";
 import EmptyText from "./BitsStore/EmptyText";
 import ReminderPopup from "./components/ReminderPopup";
-import Navbar from "./components/Navbar";
+import Hamberg from "./components/Hamberg";
+import Notification from "./components/Notification";
 
 import { useTodos } from "./hooks/UseTodos";
 import { useAlarm } from "./hooks/UseAlarm";
 import { useAutoDelete } from "./hooks/UseAutoDelete";
 import { useReminder } from "./hooks/UseReminder";
 import { UseTodoActions } from "./hooks/UseTodoActions";
+import { useMidnight } from "./hooks/useMidnight";
 
 function App() {
+  
   const todos = useTodos();
   const { playAlarm, stopAlarm } = useAlarm();
   const { scheduleAutoDelete, cancelAutoDelete } = useAutoDelete();
@@ -28,12 +31,14 @@ function App() {
     clearReminderFor,
   } = useReminder(todos, { playAlarm, stopAlarm });
 
+  useMidnight(todos);//midnight logic
+
   const {
     handleAddTodo,
     handleDeleteTodo,
     handleToggleCompleted,
     handleDone,
-    handleDismissTodo,
+   // handleDismissTodo,
     handleSnooze, // ✅ FIX: was destructured but never imported before
   } = UseTodoActions({
     activeTodoId,
@@ -47,7 +52,8 @@ function App() {
   return (
     <>
       <HeroStyle className="aurora-container pointer-events-none" />
-      <Navbar />
+      <Hamberg />
+      <Notification />
       <IntroText className="introText" />
       <AddTodo handleonChange={handleAddTodo} />
 
@@ -76,7 +82,12 @@ function App() {
           text={activeTodoText}
           // CHANGED:
           // onSnooze={() => handleSnooze(activeTodoId)}
-          onSnooze={() => handleSnooze(activeTodoId, todos.find(t => t.id === activeTodoId)?.snoozeCount)}
+          onSnooze={() =>
+            handleSnooze(
+              activeTodoId,
+              todos.find((t) => t.id === activeTodoId)?.snoozeCount,
+            )
+          }
           // CHANGED:
           onDone={handleDone}
         />

@@ -17,9 +17,15 @@ import { useReminder } from "./hooks/UseReminder";
 import { UseTodoActions } from "./hooks/UseTodoActions";
 import { useMidnight } from "./hooks/useMidnight";
 
+//Below is authentication imports
+import { useAuth } from "./hooks/useAuth";
+import AuthPage from "./components/AuthPage";
+import Account from "./components/Account";
+
 function App() {
-  
-  const todos = useTodos();
+  const { user, loading } = useAuth();
+  // const todos = useTodos();
+  const todos = useTodos(user?.uid);
   const { playAlarm, stopAlarm } = useAlarm();
   const { scheduleAutoDelete, cancelAutoDelete } = useAutoDelete();
   const {
@@ -31,14 +37,14 @@ function App() {
     clearReminderFor,
   } = useReminder(todos, { playAlarm, stopAlarm });
 
-  useMidnight(todos);//midnight logic
+  useMidnight(todos); //midnight logic
 
   const {
     handleAddTodo,
     handleDeleteTodo,
     handleToggleCompleted,
     handleDone,
-   // handleDismissTodo,
+    // handleDismissTodo,
     handleSnooze, // ✅ FIX: was destructured but never imported before
   } = UseTodoActions({
     activeTodoId,
@@ -49,13 +55,34 @@ function App() {
     cancelAutoDelete,
   });
 
+  //Authentication logic
+  // Still checking if user is logged in — show nothing yet
+  if (loading) {
+    return (
+      <div style={{ color: "white", textAlign: "center", marginTop: "100px" }}>
+        Loading...
+      </div>
+    );
+  }
+
+  // Not logged in — show login/signup screen only
+  if (!user) {
+    return <AuthPage />;
+  }
+
   return (
     <>
       <HeroStyle className="aurora-container pointer-events-none" />
       <Hamberg />
-      <Notification />
+      <div className="top-right-icons">
+        <Notification />
+        <Account user={user} />
+      </div>
       <IntroText className="introText" />
-      <AddTodo handleonChange={handleAddTodo} />
+      
+      {/* <AddTodo handleonChange={handleAddTodo} /> */}
+      {/* changes made due to Authentication  implimentation on Addtodo*/}
+      <AddTodo handleonChange={(data) => handleAddTodo({ ...data, userId: user.uid })} />
 
       {todos.length === 0 ? (
         <div style={{ marginTop: "20px", marginLeft: "20px" }}>

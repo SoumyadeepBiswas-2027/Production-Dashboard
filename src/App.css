@@ -184,7 +184,11 @@ html, body {
   align-items: center;
   justify-content: center;
   position: relative;
+  padding: 0;        /* ← ADD */
+  box-sizing: border-box; /* ← ADD */
+  flex-shrink: 0;     /* ← ADD */
 }
+
 
 /* Red badge on bell */
 .notification-badge {
@@ -310,9 +314,9 @@ html, body {
 /* Fixed position wrapper */
 .notification-wrapper {
   position:  relative;
-  top: 24px;
+  /* top: 24px;
   right: 24px;
-  z-index: 9999;
+  z-index: 9999; */
 }
 
 
@@ -448,7 +452,7 @@ html, body {
 
 
 
-
+/* 
 .account-wrapper {
   position: relative;
 }
@@ -507,6 +511,146 @@ html, body {
 .account-logout-btn:hover {
   background: rgba(255, 107, 107, 0.1);
 }
+ */
+
+ /* ACCOUNT PART 2 */
+
+ .account-wrapper {
+  position: relative;
+}
+
+.account-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(17, 17, 17, 0.6);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 0;
+  box-sizing: border-box; /* ← ADD */
+  flex-shrink: 0;          /* ← ADD */
+}
+
+.account-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.account-avatar-circle {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #4f46e5;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.account-panel {
+  position: absolute;
+  right: 0;
+  margin-top: 8px;
+  width: 260px;
+  background-color: rgba(17, 17, 17, 0.95);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.account-header {
+  padding: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.account-avatar-img-large {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.account-avatar-circle-large {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #4f46e5;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.account-name {
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.account-email {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 12px;
+  margin: 2px 0 0 0;
+  word-break: break-all;
+}
+
+.account-action-btn {
+  width: 100%;
+  padding: 12px 16px;
+  background: transparent;
+  color: white;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.account-action-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.account-logout-btn {
+  width: 100%;
+  padding: 12px 16px;
+  background: transparent;
+  color: #ff6b6b;
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.account-logout-btn:hover {
+  background: rgba(255, 107, 107, 0.1);
+}
+
+
+
 
 
 /*  holds both Bell + Account side by side with a small gap between them. */
@@ -520,5 +664,6 @@ html, body {
   z-index: 9999;
   display: flex;
   gap: 10px;
+  align-items: center;
 }
 

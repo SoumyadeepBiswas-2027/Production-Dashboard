@@ -54,18 +54,18 @@ export function UseTodoActions({
   };
 
   // ❌ DISMISS — marks dismissed, saved to DB, popup closes
-  const handleDismissTodo = async (todo) => {
-    await updateDoc(doc(db, "todos", todo.id), {
-      dismissed: true,
-      dismissedAt: new Date().toISOString(),
-      snoozedUntil: null,
-    });
+  // const handleDismissTodo = async (todo) => {
+  //   await updateDoc(doc(db, "todos", todo.id), {
+  //     dismissed: true,
+  //     dismissedAt: new Date().toISOString(),
+  //     snoozedUntil: null,
+  //   });
 
-    stopReminder();
-    clearReminderFor(todo.id);
-    cancelAutoDelete(todo.id);
-    setActiveTodoId(null);
-  };
+  //   stopReminder();
+  //   clearReminderFor(todo.id);
+  //   cancelAutoDelete(todo.id);
+  //   setActiveTodoId(null);
+  // };
 
   // // 💤 SNOOZE — closes popup, re-triggers after 30s from NOW
   // const handleSnooze = async (todoId) => {
@@ -114,7 +114,7 @@ export function UseTodoActions({
     handleDeleteTodo,
     handleToggleCompleted,
     handleDone,
-    handleDismissTodo,
+    // handleDismissTodo,
     handleSnooze,
   };
 }

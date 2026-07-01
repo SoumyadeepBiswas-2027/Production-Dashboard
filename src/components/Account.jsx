@@ -125,7 +125,7 @@
 
 ///////3rd part
 
-import { LogOut, User, RefreshCw } from "lucide-react";
+import { LogOut, RefreshCw } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { logout, loginWithGoogle } from "../services/authService";
 

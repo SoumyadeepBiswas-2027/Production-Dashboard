@@ -131,12 +131,18 @@
 //   };
 // }
 
+
+
+
+
+
+
 import { useState, useEffect, useRef, useCallback } from "react";
 import { updateDoc, doc } from "firebase/firestore";
 import { db } from "../firebase";
 
 const POLL_INTERVAL = 1000;
-const AUTO_SNOOZE_AFTER = 60 * 1000;  // 1 min of ignoring popup → auto snooze   <===revert back====>
+const AUTO_SNOOZE_AFTER = 60 * 1000; // 1 min of ignoring popup → auto snooze   <===revert back====>
 // const AUTO_SNOOZE_AFTER = 10 * 1000; // 10 seconds
 const SNOOZE_DURATION = 5 * 60 * 1000; // 5 min snooze lap (matches UseTodoActions)   <===revert back====>
 // const SNOOZE_DURATION = 5 * 1000; // 5 seconds
@@ -168,6 +174,13 @@ export function useReminder(todos, { playAlarm, stopAlarm }) {
       setActiveTodoId(todo.id);
       setShowReminder(true);
       playAlarm();
+
+      // Fire native OS notification (only exists when running inside Electron)
+      window.electronAPI?.showNotification("Reminder", todo.text);
+
+
+
+
 
       // Clear any existing auto-snooze timer before setting a new one
       if (autoSnoozeTimer.current) clearTimeout(autoSnoozeTimer.current);

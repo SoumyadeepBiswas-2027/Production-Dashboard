@@ -16,6 +16,8 @@ contextBridge.exposeInMainWorld("electronAPI", {
     ipcRenderer.send("show-notification", { title, body });
   },
 
+  hidePopup: () => ipcRenderer.send("hide-popup"),
+  sendActionDone: () => ipcRenderer.send("action-done"),
   // 2. DUMB POPUP -> MAIN PROCESS: "I was clicked!"
   sendActionDone: () => ipcRenderer.send("action-done"),
   sendActionSnooze: () => ipcRenderer.send("action-snooze"),

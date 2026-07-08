@@ -58,13 +58,21 @@
   border-radius: 10px; 
 }
 
+
+
 html, body {
- background-color: #251a49fc !important; /* Dark purple - Indigo */
+  background-color: #251a49fc !important; /* Dark purple - Indigo */
   margin: 0;
   font-family: Arial, sans-serif;
   color: #fff !important;  /* White text for better contrast */
   height: 100%;
   
+}
+
+html.popup-mode,
+body.popup-mode,
+#root.popup-mode {
+  background-color: transparent !important;
 }
 
 .list-group-item {
@@ -73,6 +81,7 @@ html, body {
   border-radius: 10px; 
   flex: 1;
 }
+
 .Delete-Btn{
    background-color: #ff0000; /* Green */
   border: none;

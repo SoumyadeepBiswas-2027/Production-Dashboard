@@ -131,12 +131,6 @@
 //   };
 // }
 
-
-
-
-
-
-
 import { useState, useEffect, useRef, useCallback } from "react";
 import { updateDoc, doc } from "firebase/firestore";
 import { db } from "../firebase";
@@ -178,10 +172,6 @@ export function useReminder(todos, { playAlarm, stopAlarm }) {
       // Fire native OS notification (only exists when running inside Electron)
       window.electronAPI?.showNotification("Reminder", todo.text);
 
-
-
-
-
       // Clear any existing auto-snooze timer before setting a new one
       if (autoSnoozeTimer.current) clearTimeout(autoSnoozeTimer.current);
 
@@ -206,6 +196,7 @@ export function useReminder(todos, { playAlarm, stopAlarm }) {
           setShowReminder(false);
           alarmActiveRef.current = false;
           setActiveTodoId(null);
+          window.electronAPI?.hidePopup?.();
           return;
         }
 
@@ -219,6 +210,7 @@ export function useReminder(todos, { playAlarm, stopAlarm }) {
         stopAlarm();
         setShowReminder(false);
         alarmActiveRef.current = false;
+        window.electronAPI?.hidePopup?.();
         // Don't clear activeTodoId — poll will re-set when snooze time hits
       }, AUTO_SNOOZE_AFTER);
     },

@@ -18,9 +18,13 @@ import { useAutoDelete } from "./hooks/UseAutoDelete";
 import { useReminder } from "./hooks/UseReminder";
 import { UseTodoActions } from "./hooks/UseTodoActions";
 import { useMidnight } from "./hooks/useMidnight";
+
 import { useAuth } from "./hooks/useAuth";
 import AuthPage from "./components/AuthPage";
 import Account from "./components/Account";
+import OnboardingQuiz from "./components/OnboardingQuiz";
+
+
 
 function App() {
   // --- 1. POPUP DETECTION ---
@@ -47,6 +51,12 @@ function App() {
 
   const { user, loading } = useAuth();
   const todos = useTodos(user?.uid);
+
+    // --- NEW: Quiz State ---
+  // Check local storage so we only show this once per device for now
+  const [showQuiz, setShowQuiz] = useState(() => {
+    return !localStorage.getItem("adhdSetupComplete");
+  });
 
   // If we are in the floating popup, prevent hooks from double-firing the alarm logic
   const popupSafeTodos = isPopup ? [] : todos;
@@ -144,6 +154,24 @@ function App() {
 
   if (!user) {
     return <AuthPage />;
+  }
+
+   // --- 5. RENDER THE ONBOARDING QUIZ (After Auth, Before Dashboard) ---
+  if (showQuiz) {
+    return (
+      <OnboardingQuiz 
+        onComplete={(needsSupport) => {
+          // Mark quiz as completed in browser memory
+          localStorage.setItem("adhdSetupComplete", "true");
+          
+          // Store the AI's decision (true/false) locally for now
+          localStorage.setItem("needsAdhdSupport", needsSupport);
+          
+          // Hide the quiz and show the dashboard!
+          setShowQuiz(false);
+        }} 
+      />
+    );
   }
 
   return (

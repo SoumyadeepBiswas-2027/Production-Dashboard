@@ -29,24 +29,6 @@ function App() {
   const isPopup = searchParams.get("popup") === "true";
   const popupText = searchParams.get("text") || "Reminder!";
 
-  // 🟢 CHANGED: Force the background to be completely invisible for the popup window!
-  // useEffect(() => {
-  //   if (isPopup) {
-  //     document.body.style.background = "transparent";
-  //     document.body.style.backgroundColor = "transparent";
-  //     const rootElement = document.getElementById("root");
-  //     if (rootElement) {
-  //       rootElement.style.background = "transparent";
-  //       rootElement.style.backgroundColor = "transparent";
-  //     }
-  //   }
-  // }, [isPopup]);
-
-  // useEffect(() => {
-  //   if (isPopup) {
-  //     document.body.classList.add("popup-mode");
-  //   }
-  // }, [isPopup]);
 
   
   useEffect(() => {

@@ -20,10 +20,30 @@ const OPTIONS = [
   { label: "Very Often", value: 4 }
 ];
 
+// Friendly, non-clinical display names for each mode.
+// The underlying code still uses "standard" / "inattentive" / "combined"
+// internally (to match aiLogic.js) — only the on-screen text changes.
+const MODE_DISPLAY = {
+  standard: {
+    title: "Balanced Mode Activated",
+    description: "Your dashboard is set up with standard productivity settings.",
+  },
+  inattentive: {
+    title: "Time Flow Mode Activated",
+    description:
+      "We've added live countdowns and gentle reminders that stick around until you act on them, so nothing slips by unnoticed.",
+  },
+  combined: {
+    title: "Calm Focus Mode Activated",
+    description:
+      "We've simplified your view to show just a few tasks at a time, with small rewards when you check things off, so it feels lighter, not overwhelming.",
+  },
+};
+
 export default function OnboardingQuiz({ onComplete }) {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState({});
-  const [result, setResult] = useState(null);
+  const [result, setResult] = useState(null); // will hold "standard" | "inattentive" | "combined"
 
   const handleAnswer = (value) => {
     // Save the answer
@@ -58,12 +78,13 @@ export default function OnboardingQuiz({ onComplete }) {
 
     // --- THE MAGIC HAPPENS HERE ---
     // Feed the scores into the AI Logic we generated from Python!
-    const needsSupport = evaluateAdhdSupport(inattentiveScore, hyperImpulsiveScore);
+    // This now returns "standard" | "inattentive" | "combined"
+    const mode = evaluateAdhdSupport(inattentiveScore, hyperImpulsiveScore);
 
-    setResult(needsSupport);
-    
-    // In a real app, you would save this 'needsSupport' boolean to Firebase here
-    // e.g., await updateDoc(userRef, { requiresAdhdSupport: needsSupport })
+    setResult(mode);
+
+    // In a real app, you would save this mode string to Firebase here
+    // e.g., await updateDoc(userRef, { focusMode: mode })
   };
 
   return (
@@ -72,13 +93,13 @@ export default function OnboardingQuiz({ onComplete }) {
         <div style={styles.card}>
           <h2 style={styles.header}>Personalizing your experience...</h2>
           <p style={styles.progress}>Question {currentQuestion + 1} of {QUESTIONS.length}</p>
-          
+
           <h3 style={styles.questionText}>{QUESTIONS[currentQuestion].text}</h3>
-          
+
           <div style={styles.optionsContainer}>
             {OPTIONS.map((opt) => (
-              <button 
-                key={opt.label} 
+              <button
+                key={opt.label}
                 onClick={() => handleAnswer(opt.value)}
                 style={styles.button}
               >
@@ -91,13 +112,10 @@ export default function OnboardingQuiz({ onComplete }) {
         <div style={styles.card}>
           <h2 style={styles.header}>Setup Complete!</h2>
           <p style={styles.resultText}>
-            AI Assessment: 
-            <strong>{result ? " High-Support Mode Activated" : " Standard Mode Activated"}</strong>
+            <strong>{MODE_DISPLAY[result].title}</strong>
           </p>
           <p style={styles.subText}>
-            {result 
-              ? "We've adjusted your timers and reminders to be more forgiving and ADHD-friendly."
-              : "Your dashboard is set up with standard productivity settings."}
+            {MODE_DISPLAY[result].description}
           </p>
           <button style={styles.primaryButton} onClick={() => onComplete && onComplete(result)}>
             Go to Dashboard

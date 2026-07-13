@@ -11,28 +11,28 @@ export function evaluateAdhdSupport(inattentiveScore, hyperImpulsiveScore) {
   if (inattentiveScore <= 59.50) {
     if (inattentiveScore <= 38.00) {
       if (inattentiveScore <= 22.50) {
-        return false; // class: 0.0 (Standard Mode)
+        return "standard"; // class: 0.0 (Standard Mode)
       } else {
-        return true;  // class: 3.0 (ADHD-Inattentive -> Support Mode)
+        return "inattentive";  // class: 3.0 (ADHD-Inattentive -> Support Mode)
       }
     } else {
       if (hyperImpulsiveScore <= 62.50) {
-        return false; // class: 0.0 (Standard Mode)
+        return "standard";   // class: 0.0 (Standard Mode)
       } else {
-        return true;  // class: 1.0 (ADHD-Combined -> Support Mode)
+        return "combined";  // class: 1.0 (ADHD-Combined -> Support Mode)
       }
     }
   } 
   else {
     if (hyperImpulsiveScore <= 55.50) {
       if (inattentiveScore <= 63.00) {
-        return false; // class: 0.0 (Standard Mode)
+        return "standard"; // class: 0.0 (Standard Mode)
       } else {
-        return true;  // class: 3.0 (ADHD-Inattentive -> Support Mode)
+        return "inattentive";  // class: 3.0 (ADHD-Inattentive -> Support Mode)
       }
     } else {
       // If hyperImpulsive is > 55.50, all paths lead to class 1.0
-      return true;    // class: 1.0 (ADHD-Combined -> Support Mode)
+      return "combined"   // class: 1.0 (ADHD-Combined -> Support Mode)
     }
   }
 }

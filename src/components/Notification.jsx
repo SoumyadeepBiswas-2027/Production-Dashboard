@@ -8,6 +8,7 @@ import {
   getDocs,
   addDoc,
   updateDoc,
+  deleteDoc,
   doc,
   onSnapshot,
 } from "firebase/firestore";
@@ -81,18 +82,18 @@ export default function Notification({ isOpen, onToggle }) {
     onToggle(); // closes dropdown via parent state
   };
 
-  // ─── NO — Dismiss all overdue notifications ───────────────────────────────
+  // ─── NO — Dismiss all overdue notifications ─────────────────────────────
+  // Click "No, Dismiss" (after our fix) → the old task gets permanently deleted from the database — no leftover junk.
+  
   const handleDismiss = async () => {
-    const dismissPromises = overdueTasks.map((task) =>
-      updateDoc(doc(db, "todos", task.id), {
-        notificationDismissed: true,
-      })
-    );
+  const deletePromises = overdueTasks.map((task) =>
+    deleteDoc(doc(db, "todos", task.id))
+  );
 
-    await Promise.all(dismissPromises);
-    setOverdueTasks([]);
-    onToggle(); // closes dropdown via parent state
-  };
+  await Promise.all(deletePromises);
+  setOverdueTasks([]);
+  onToggle();
+};
 
   return (
     <div className="notification-wrapper">
@@ -155,6 +156,11 @@ export default function Notification({ isOpen, onToggle }) {
     </div>
   );
 }
+
+
+
+
+
 
 
 
